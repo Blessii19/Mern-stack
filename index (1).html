@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Online Shopping System</title>
+
+<!-- ===== EXTERNAL STYLE SHEET ===== -->
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<!-- ===== EMBEDDED (INTERNAL) STYLE SHEET ===== -->
+<style>
+    /* Element Selector */
+    p {
+        font-size: 14px;
+        color: #555;
+    }
+
+    /* Class Selector */
+    .offer {
+        color: red;
+        font-weight: bold;
+    }
+
+    /* ID Selector */
+    #welcome-msg {
+        text-align: center;
+        font-style: italic;
+        color: #2c3e50;
+    }
+
+    /* Descendant Selector */
+    .container h2 {
+        color: #16a085;
+    }
+</style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <div id="header">
+        <h1>Online Shopping System</h1>
+        <ul class="nav-menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <!-- INLINE STYLE SHEET -->
+        <p id="welcome-msg" style="font-size:20px; color:#e67e22; margin-top:20px;">
+            Welcome to our Online Shopping Store!
+        </p>
+
+        <p class="offer">Flat 50% OFF on all Electronics - Limited Time Offer!</p>
+
+        <h2>Featured Products</h2>
+
+        <!-- Product Cards -->
+        <div class="product-card">
+            <h3>Wireless Headphones</h3>
+            <p>High quality sound with noise cancellation.</p>
+            <p class="price">Rs. 1999</p>
+            <input type="button" value="Add to Cart">
+        </div>
+
+        <div class="product-card">
+            <h3>Smart Watch</h3>
+            <p>Track your fitness and notifications.</p>
+            <p class="price">Rs. 2999</p>
+            <input type="button" value="Add to Cart">
+        </div>
+
+        <div class="product-card">
+            <h3>Bluetooth Speaker</h3>
+            <!-- Inline style example -->
+            <p style="color:blue;">Portable and waterproof design.</p>
+            <p class="price">Rs. 1499</p>
+            <input type="button" value="Add to Cart">
+        </div>
+    </div>
+
+    <div id="footer">
+        <p style="color:white;">&copy; 2026 Online Shopping System. All Rights Reserved.</p>
+    </div>
+
+</body>
+</html>
