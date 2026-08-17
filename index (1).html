@@ -1,89 +1,445 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>Online Shopping System</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Calculator</title>
 
-<!-- ===== EXTERNAL STYLE SHEET ===== -->
-<link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<!-- ===== EMBEDDED (INTERNAL) STYLE SHEET ===== -->
-<style>
-    /* Element Selector */
-    p {
-        font-size: 14px;
-        color: #555;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f9;
+            color: #222;
+        }
 
-    /* Class Selector */
-    .offer {
-        color: red;
-        font-weight: bold;
-    }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
 
-    /* ID Selector */
-    #welcome-msg {
-        text-align: center;
-        font-style: italic;
-        color: #2c3e50;
-    }
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-    /* Descendant Selector */
-    .container h2 {
-        color: #16a085;
-    }
-</style>
+        header h1 {
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .expense-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 7px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .expense-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .expense-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            margin-left: 10px;
+            padding: 8px 12px;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            color: #888;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-box h3 {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .summary-box p {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        #savings {
+            color: #16a34a;
+        }
+
+        #categoryReport p {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .reset-btn {
+            display: block;
+            margin: 20px auto;
+            background: #555;
+        }
+
+        .reset-btn:hover {
+            background: #333;
+        }
+
+        @media (max-width: 768px) {
+            .expense-form {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .expense-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header Section -->
-    <div id="header">
-        <h1>Online Shopping System</h1>
-        <ul class="nav-menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Cart</a></li>
-            <li><a href="#">Login</a></li>
-        </ul>
+<div class="container">
+
+    <header>
+        <h1>Personal Expense Calculator</h1>
+        <p>Track your income, expenses and savings</p>
+    </header>
+
+    <div class="card">
+        <h2>Monthly Income</h2>
+
+        <input
+            type="number"
+            id="income"
+            placeholder="Enter your monthly income"
+            min="0"
+        >
     </div>
 
-    <div class="container">
-        <!-- INLINE STYLE SHEET -->
-        <p id="welcome-msg" style="font-size:20px; color:#e67e22; margin-top:20px;">
-            Welcome to our Online Shopping Store!
-        </p>
+    <div class="card">
+        <h2>Add Expense</h2>
 
-        <p class="offer">Flat 50% OFF on all Electronics - Limited Time Offer!</p>
+        <div class="expense-form">
 
-        <h2>Featured Products</h2>
+            <input
+                type="text"
+                id="expenseName"
+                placeholder="Expense name"
+            >
 
-        <!-- Product Cards -->
-        <div class="product-card">
-            <h3>Wireless Headphones</h3>
-            <p>High quality sound with noise cancellation.</p>
-            <p class="price">Rs. 1999</p>
-            <input type="button" value="Add to Cart">
-        </div>
+            <input
+                type="number"
+                id="expenseAmount"
+                placeholder="Amount"
+                min="0"
+            >
 
-        <div class="product-card">
-            <h3>Smart Watch</h3>
-            <p>Track your fitness and notifications.</p>
-            <p class="price">Rs. 2999</p>
-            <input type="button" value="Add to Cart">
-        </div>
+            <select id="expenseCategory">
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Education">Education</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Other">Other</option>
+            </select>
 
-        <div class="product-card">
-            <h3>Bluetooth Speaker</h3>
-            <!-- Inline style example -->
-            <p style="color:blue;">Portable and waterproof design.</p>
-            <p class="price">Rs. 1499</p>
-            <input type="button" value="Add to Cart">
+            <button onclick="addExpense()">Add Expense</button>
+
         </div>
     </div>
 
-    <div id="footer">
-        <p style="color:white;">&copy; 2026 Online Shopping System. All Rights Reserved.</p>
+    <div class="card">
+        <h2>Expense Details</h2>
+
+        <div id="expenseList">
+            <p class="empty">No expenses added yet.</p>
+        </div>
     </div>
+
+    <div class="summary">
+
+        <div class="summary-box">
+            <h3>Income</h3>
+            <p id="totalIncome">₹0</p>
+        </div>
+
+        <div class="summary-box">
+            <h3>Total Expenses</h3>
+            <p id="totalExpense">₹0</p>
+        </div>
+
+        <div class="summary-box">
+            <h3>Savings</h3>
+            <p id="savings">₹0</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <h2> Category-wise Report</h2>
+
+        <div id="categoryReport">
+            <p>Food: ₹0</p>
+            <p>Travel: ₹0</p>
+            <p>Education: ₹0</p>
+            <p>Shopping: ₹0</p>
+            <p>Bills: ₹0</p>
+            <p>Other: ₹0</p>
+        </div>
+    </div>
+
+    <button class="reset-btn" onclick="resetCalculator()">
+        Reset Calculator
+    </button>
+
+</div>
+
+<script>
+
+let expenses = [];
+
+function addExpense() {
+
+    let name = document.getElementById("expenseName").value;
+    let amount = Number(document.getElementById("expenseAmount").value);
+    let category = document.getElementById("expenseCategory").value;
+
+    if (name === "" || amount <= 0) {
+        alert("Please enter a valid expense name and amount.");
+        return;
+    }
+
+    let expense = {
+        name: name,
+        amount: amount,
+        category: category
+    };
+
+    expenses.push(expense);
+
+    document.getElementById("expenseName").value = "";
+    document.getElementById("expenseAmount").value = "";
+
+    displayExpenses();
+    calculateSummary();
+    displayCategoryReport();
+}
+
+function displayExpenses() {
+
+    let expenseList = document.getElementById("expenseList");
+
+    expenseList.innerHTML = "";
+
+    if (expenses.length === 0) {
+        expenseList.innerHTML =
+            '<p class="empty">No expenses added yet.</p>';
+        return;
+    }
+
+    expenses.forEach(function(expense, index) {
+
+        let expenseItem = document.createElement("div");
+
+        expenseItem.className = "expense-item";
+
+        expenseItem.innerHTML = `
+            <div class="expense-info">
+                <h3>${expense.name}</h3>
+                <p>Category: ${expense.category}</p>
+            </div>
+
+            <div>
+                <strong>₹${expense.amount.toLocaleString("en-IN")}</strong>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteExpense(${index})">
+                    Delete
+                </button>
+            </div>
+        `;
+
+        expenseList.appendChild(expenseItem);
+    });
+}
+
+function deleteExpense(index) {
+
+    expenses.splice(index, 1);
+
+    displayExpenses();
+    calculateSummary();
+    displayCategoryReport();
+}
+
+function calculateSummary() {
+
+    let income =
+        Number(document.getElementById("income").value);
+
+    let totalExpense = 0;
+
+    expenses.forEach(function(expense) {
+        totalExpense += expense.amount;
+    });
+
+    let savings = income - totalExpense;
+
+    document.getElementById("totalIncome").textContent =
+        "₹" + income.toLocaleString("en-IN");
+
+    document.getElementById("totalExpense").textContent =
+        "₹" + totalExpense.toLocaleString("en-IN");
+
+    document.getElementById("savings").textContent =
+        "₹" + savings.toLocaleString("en-IN");
+
+    if (savings < 0) {
+        document.getElementById("savings").style.color = "#dc2626";
+    } else {
+        document.getElementById("savings").style.color = "#16a34a";
+    }
+}
+
+document.getElementById("income").addEventListener(
+    "input",
+    calculateSummary
+);
+
+function displayCategoryReport() {
+
+    let categories = {
+        Food: 0,
+        Travel: 0,
+        Education: 0,
+        Shopping: 0,
+        Bills: 0,
+        Other: 0
+    };
+
+    expenses.forEach(function(expense) {
+        categories[expense.category] += expense.amount;
+    });
+
+    let report =
+        document.getElementById("categoryReport");
+
+    report.innerHTML = "";
+
+    for (let category in categories) {
+
+        let paragraph =
+            document.createElement("p");
+
+        paragraph.textContent =
+            category +
+            ": ₹" +
+            categories[category].toLocaleString("en-IN");
+
+        report.appendChild(paragraph);
+    }
+}
+
+function resetCalculator() {
+
+    expenses = [];
+
+    document.getElementById("income").value = "";
+    document.getElementById("expenseName").value = "";
+    document.getElementById("expenseAmount").value = "";
+
+    displayExpenses();
+    calculateSummary();
+    displayCategoryReport();
+}
+
+</script>
 
 </body>
 </html>
